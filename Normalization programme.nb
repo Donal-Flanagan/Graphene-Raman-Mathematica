@@ -1,0 +1,442 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[     19510,        433]
+NotebookOptionsPosition[     18654,        399]
+NotebookOutlinePosition[     18998,        414]
+CellTagsIndexPosition[     18955,        411]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[{
+ "\n",
+ StyleBox["This programme was originally written by D\[OAcute]nal Flanagan as \
+part of a M. Sc. thesis in physics entitled \
+\[OpenCurlyDoubleQuote]Surface-enhanced Raman spectroscopy on nano-patterned \
+copper\[CloseCurlyDoubleQuote].\n\nThe  work shown here was carried out in \
+the research group of Prof. Dr. Stephanie Reich at the Freie Universit\
+\[ADoubleDot]t Berlin as part of a collaborative research project in surface \
+enhanced Raman spectroscopy with Atotech Berlin GmBH and  Prof. Eric Anglaret \
+of the Universit\[EHat] Montpellier II.\n\nThe programme is designed for the \
+analysis of CVD graphene but may be easily edited to analyse maps of other \
+materials. \n\nIf you have any questions or problems using this programme \
+please feel free to contact me at:\ndonaloflanagain@gmail.com\n\
+https://www.linkedin.com/in/donaloflanagain\n\
+www.xing.com/profile/Donal_Flanagan2\nand I will do my best to reply.\n\n",
+  FontSlant->"Italic"],
+ StyleBox["This programme simply imports all the files in a data set and \
+multiplies the y-values by a constant value n. For explanations of the \
+functions see the Raman map fitting programme.",
+  FontColor->RGBColor[0., 0., 1.]],
+ "\n"
+}], "Text",
+ CellChangeTimes->{{3.6246084337050037`*^9, 3.6246084590656786`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Functions", "Section",
+ CellChangeTimes->{{3.5940269070063043`*^9, 3.5940269087103043`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", "\"\<Global`*\>\"", "]"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"extractlocations", "[", "filepath_", "]"}], ":=", 
+   RowBox[{"(", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"filename", "=", 
+      RowBox[{"FileBaseName", "[", "filepath", "]"}]}], ";", 
+     RowBox[{"folderpath", "=", 
+      RowBox[{"DirectoryName", "[", "filepath", "]"}]}], ";", 
+     RowBox[{"dir", "=", 
+      RowBox[{"DirectoryName", "[", "folderpath", "]"}]}], ";", 
+     RowBox[{"Return", "[", "filename", "]"}], ";", 
+     RowBox[{"Return", "[", "folderpath", "]"}], ";", 
+     RowBox[{"Return", "[", "dir", "]"}], ";"}], ")"}]}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Split", " ", "the", " ", "filename", " ", "into", " ", "its", " ", 
+    "seperate", " ", "parts", " ", "to", " ", "be", " ", "used", " ", 
+    RowBox[{"later", ".", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"<>", "\"\<_\>\"", "<>", 
+      RowBox[{"split", "[", 
+       RowBox[{"[", "2", "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+      RowBox[{"split", "[", 
+       RowBox[{"[", "3", "]"}], "]"}]}]}]}], "\[IndentingNewLine]", " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"splitfilename", "[", "filename_", "]"}], ":=", 
+   RowBox[{"(", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"split", "=", 
+      RowBox[{"StringSplit", "[", 
+       RowBox[{"filename", ",", "\"\<_\>\""}], "]"}]}], ";", 
+     RowBox[{"mapname", "=", 
+      RowBox[{
+       RowBox[{"split", "[", 
+        RowBox[{"[", "1", "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+       RowBox[{"split", "[", 
+        RowBox[{"[", "2", "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+       RowBox[{"split", "[", 
+        RowBox[{"[", "3", "]"}], "]"}]}]}], ";", 
+     RowBox[{"Xmax", "=", 
+      RowBox[{"ToExpression", "[", 
+       RowBox[{"split", "[", 
+        RowBox[{"[", "4", "]"}], "]"}], "]"}]}], ";", 
+     RowBox[{"Ymax", "=", 
+      RowBox[{"ToExpression", "[", 
+       RowBox[{"split", "[", 
+        RowBox[{"[", "5", "]"}], "]"}], "]"}]}], ";", 
+     RowBox[{"Return", "[", "mapname", "]"}], ";", 
+     RowBox[{"Return", "[", "Ymax", "]"}], ";", 
+     RowBox[{"Return", "[", "Xmax", "]"}], ";"}], ")"}]}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "This", " ", "function", " ", "takes", " ", "the", " ", "folder", " ", 
+     "path", " ", "and", " ", "filename", " ", "and", " ", "imports", " ", 
+     "the", " ", 
+     RowBox[{"data", ".", " ", "X"}], " ", "and", " ", "Y", " ", "are", " ", 
+     "given", " ", "by", " ", 
+     RowBox[{"a", " ", "'"}], 
+     RowBox[{"For", "'"}], " ", "loop", " ", "which", " ", "goes", " ", 
+     "from", " ", 
+     RowBox[{"{", 
+      RowBox[{"0", ",", "0"}], "}"}], " ", "to", " ", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"Xmax", ",", "Ymax"}], "}"}], ".", " ", "'"}], 
+     RowBox[{"folderpath", "'"}], " ", 
+     RowBox[{"and", " ", "'"}], 
+     RowBox[{"mapname", "'"}], " ", "are", " ", "already", " ", 
+     RowBox[{"strings", ".", " ", "The"}], " ", 
+     RowBox[{"command", " ", "'"}], 
+     RowBox[{"ToString", "'"}], " ", "turns", " ", "the", " ", "variables", 
+     " ", "X", " ", "and", " ", "Y", " ", "into", " ", "string", " ", 
+     RowBox[{"form", ".", " ", "Any"}], " ", "other", " ", "input", " ", 
+     "must", " ", "be", " ", "given", " ", "inside", " ", "quotations"}], ",",
+     " ", 
+    RowBox[{"such", " ", "as", " ", "the", " ", "underscore", " ", 
+     RowBox[{"\"\<_\>\"", ".", " ", 
+      RowBox[{"The", " ", "<>", " ", "joins"}]}], " ", "strings", " ", 
+     RowBox[{"together", ".", " ", "The"}], " ", 
+     RowBox[{"command", " ", "'"}], 
+     RowBox[{"StringJoin", "'"}], " ", "can", " ", "also", " ", "be", " ", 
+     RowBox[{"used", "."}]}]}], "\[IndentingNewLine]", " ", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"importdata", "[", 
+   RowBox[{"folderpath_", ",", "mapname_", ",", "X_", ",", "Y_"}], "]"}], ":=", 
+  RowBox[{"(", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"fullmapdata", "=", 
+     RowBox[{"Import", "[", 
+      RowBox[{
+       RowBox[{"folderpath", "<>", "mapname", "<>", "\"\<_\>\"", "<>", 
+        RowBox[{"ToString", "[", "X", "]"}], "<>", "\"\<_\>\"", "<>", 
+        RowBox[{"ToString", "[", "Y", "]"}], "<>", "\"\<.txt\>\""}], ",", 
+       "\"\<TSV\>\""}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Return", "[", "fullmapdata", "]"}], ";"}], 
+   ")"}]}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.604228469614831*^9, 3.6042284939132605`*^9}, {
+   3.6042311814426975`*^9, 3.604231184162698*^9}, {3.604231246095698*^9, 
+   3.6042313033876977`*^9}, {3.604231402470698*^9, 3.604231415403698*^9}, {
+   3.604231472187698*^9, 3.6042314844026976`*^9}, {3.604232570853436*^9, 
+   3.604232575507901*^9}, {3.604232682522602*^9, 3.6042326864579954`*^9}, {
+   3.604859898909843*^9, 3.604859916781865*^9}, 3.6048601551795006`*^9, {
+   3.6048603596631966`*^9, 3.60486036339441*^9}, {3.6048606699449434`*^9, 
+   3.6048606746862144`*^9}, {3.6048611345275164`*^9, 
+   3.6048611397558155`*^9}, {3.604861446517361*^9, 3.604861453712773*^9}, {
+   3.605546136357463*^9, 3.6055461397738686`*^9}, {3.605546207216789*^9, 
+   3.605546212333598*^9}, {3.605550798606588*^9, 3.6055508061570015`*^9}, 
+   3.6055892583148155`*^9, 3.605589309938138*^9, {3.6055893712423964`*^9, 
+   3.605589376323413*^9}, {3.6055894901557755`*^9, 3.605589495411301*^9}, {
+   3.6055896209058495`*^9, 3.6055896284336023`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Choose data file, set normalization constant", "Section",
+ CellChangeTimes->{{3.5916769859096785`*^9, 3.591676991957283*^9}, {
+  3.6042268041956215`*^9, 3.6042268057056212`*^9}, {3.604228692347102*^9, 
+  3.6042287033482018`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Choose", " ", "a", " ", "normalization", " ", "constant", " ", "by", " ", 
+    "which", " ", "to", " ", "multiply", " ", "your", " ", "data"}], " ", 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"n", "=", "4.5"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{
+     "Select", " ", "the", " ", "last", " ", "file", " ", "in", " ", "the", 
+      " ", "map"}], ";", " ", 
+     RowBox[{"mapname_Xmax", 
+      RowBox[{"_Ymax", ".", " ", "\[IndentingNewLine]", "The"}], " ", 
+      "programme", " ", "will", " ", "import", " ", "each", " ", "file", " ", 
+      "from", " ", "mapname_", "0", "_", "0", " ", "to", " ", "mapname_Xmax", 
+      "_Ymax"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"filepath", "=", 
+    RowBox[{"FileNameSetter", "[", 
+     RowBox[{"Dynamic", "[", "filepath", "]"}], "]"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.5892049746714964`*^9, 3.58920497551058*^9}, {
+   3.5892052932213483`*^9, 3.5892053037283993`*^9}, {3.5892081168286953`*^9, 
+   3.5892081176637783`*^9}, {3.6042267854686213`*^9, 
+   3.6042267875076213`*^9}, {3.60422871472534*^9, 3.604228720557923*^9}, {
+   3.6042290268959045`*^9, 3.6042290278629045`*^9}, {3.6042292377319045`*^9, 
+   3.6042292467149043`*^9}, {3.6042302549883595`*^9, 
+   3.6042302558594465`*^9}, {3.6042309113646975`*^9, 
+   3.6042309124686975`*^9}, {3.604232504820833*^9, 3.6042325080441556`*^9}, {
+   3.604233026210967*^9, 3.6042330289232388`*^9}, {3.604858525645297*^9, 
+   3.6048585310976086`*^9}, {3.6048600729167957`*^9, 3.604860075471942*^9}, 
+   3.604860619545061*^9, {3.604860894092764*^9, 3.6048608946877985`*^9}, {
+   3.6048611774379706`*^9, 3.604861178231016*^9}, {3.6048614102412863`*^9, 
+   3.604861410604307*^9}, {3.6055460709647474`*^9, 3.605546089154379*^9}, {
+   3.60555069876781*^9, 3.6055507001250124`*^9}, {3.624049580444769*^9, 
+   3.624049740369916*^9}}],
+
+Cell[BoxData["4.5`"], "Output",
+ CellChangeTimes->{
+  3.5938561454652433`*^9, 3.6042266926596565`*^9, {3.6042290237349043`*^9, 
+   3.604229043623904*^9}, 3.6042291992389045`*^9, 3.6042292485969048`*^9, 
+   3.6042302726451254`*^9, 3.60423078594145*^9, {3.6042309075986977`*^9, 
+   3.6042309136056976`*^9}, 3.6042311889826975`*^9, 3.6042313072956977`*^9, 
+   3.6042314293296976`*^9, 3.6042314896376977`*^9, 3.604232585274878*^9, 
+   3.6042326410534554`*^9, 3.604232689967346*^9, 3.604858536627925*^9, 
+   3.604859489243411*^9, 3.6048599539249897`*^9, 3.604860079659181*^9, 
+   3.6048601658021083`*^9, 3.604860272612218*^9, 3.6048603665415897`*^9, 
+   3.604860628509574*^9, 3.60486070519996*^9, 3.6048609091566257`*^9, 
+   3.60486114804729*^9, 3.604861199703244*^9, 3.604861458546049*^9, 
+   3.605546093506787*^9, 3.605546144719077*^9, 3.6055462293376274`*^9, 
+   3.605550710904631*^9, 3.605550810727809*^9, 3.605588873163975*^9, 
+   3.605589261062365*^9, 3.6055893888959265`*^9, 3.6055895005058107`*^9, 
+   3.6055896331490736`*^9}],
+
+Cell[BoxData[
+ InterpretationBox[
+  ButtonBox[
+   DynamicBox[FEPrivate`FrontEndResource["FEStrings", "BrowseLabel"],
+    ImageSizeCache->{50., {0., 9.}}],
+   Appearance->"DialogBox",
+   ButtonFunction:>BoxForm`FileNameSetterFunction[
+     Dynamic[$CellContext`filepath], "Open", Automatic, Automatic],
+   Enabled->Automatic,
+   Evaluator->Automatic,
+   ImageMargins->0,
+   ImageSize->Automatic,
+   Method->"Queued"],
+  FileNameSetter[
+   Dynamic[$CellContext`filepath], "Open", Automatic]]], "Output",
+ CellChangeTimes->{
+  3.5938561454652433`*^9, 3.6042266926596565`*^9, {3.6042290237349043`*^9, 
+   3.604229043623904*^9}, 3.6042291992389045`*^9, 3.6042292485969048`*^9, 
+   3.6042302726451254`*^9, 3.60423078594145*^9, {3.6042309075986977`*^9, 
+   3.6042309136056976`*^9}, 3.6042311889826975`*^9, 3.6042313072956977`*^9, 
+   3.6042314293296976`*^9, 3.6042314896376977`*^9, 3.604232585274878*^9, 
+   3.6042326410534554`*^9, 3.604232689967346*^9, 3.604858536627925*^9, 
+   3.604859489243411*^9, 3.6048599539249897`*^9, 3.604860079659181*^9, 
+   3.6048601658021083`*^9, 3.604860272612218*^9, 3.6048603665415897`*^9, 
+   3.604860628509574*^9, 3.60486070519996*^9, 3.6048609091566257`*^9, 
+   3.60486114804729*^9, 3.604861199703244*^9, 3.604861458546049*^9, 
+   3.605546093506787*^9, 3.605546144719077*^9, 3.6055462293376274`*^9, 
+   3.605550710904631*^9, 3.605550810727809*^9, 3.605588873163975*^9, 
+   3.605589261062365*^9, 3.6055893888959265`*^9, 3.6055895005058107`*^9, 
+   3.605589633152074*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Parrallel- import data and normalize", "Section",
+ CellChangeTimes->{{3.591676998341922*^9, 3.5916770015572433`*^9}, {
+  3.604226808201621*^9, 3.604226811337621*^9}, {3.604232006518008*^9, 
+  3.60423205004036*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "HERE", " ", "WE", " ", "EXTRACT", " ", "THE", " ", "CONTAINING", " ", 
+     "FOLDER", " ", "FILEPATHS"}], ",", " ", 
+    RowBox[{"FILE", " ", "NAMES"}], ",", " ", 
+    RowBox[{
+     RowBox[{"ETC", ".", " ", "FROM"}], " ", "THE", " ", "FILEPATH"}]}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"extractlocations", "[", "filepath", "]"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "EXTRACT", " ", "THE", " ", "NAME", " ", "OF", " ", "THE", " ", "MAP", 
+     " ", "AND", " ", "THE", " ", "NUMBER", " ", "OF", " ", "SPECTRA"}], 
+    "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"splitfilename", "[", "filename", "]"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "CREATE", " ", "DIRECTORIES", " ", "TO", " ", "EXPORT", " ", "THE", " ", 
+     "RESULTS", " ", "AND", " ", "SPECTRA", " ", "TOO"}], " ", "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"normalizeddatadir", "=", 
+    RowBox[{"CreateDirectory", "[", 
+     RowBox[{"dir", "<>", 
+      RowBox[{"ToString", "[", "mapname", "]"}], "<>", 
+      "\"\<;Normalized, 5sec 10%, wavelength//\>\""}], "]"}]}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"For", "[", 
+    RowBox[{
+     RowBox[{"X", "=", "0"}], ",", 
+     RowBox[{"X", "\[LessEqual]", "Xmax"}], ",", 
+     RowBox[{"X", "++"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"Y", "=", "0"}], ",", 
+       RowBox[{"Y", "\[LessEqual]", "Ymax"}], ",", 
+       RowBox[{"Y", "++"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"importdata", "[", 
+         RowBox[{"folderpath", ",", "mapname", ",", "X", ",", "Y"}], "]"}], 
+        ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"fullmapdata", "[", 
+          RowBox[{"[", 
+           RowBox[{"All", ",", "2"}], "]"}], "]"}], "=", 
+         RowBox[{
+          RowBox[{"fullmapdata", "[", 
+           RowBox[{"[", 
+            RowBox[{"All", ",", "2"}], "]"}], "]"}], "*", "n"}]}], ";", 
+        "\[IndentingNewLine]", "\[IndentingNewLine]", 
+        RowBox[{"Export", "[", 
+         RowBox[{
+          RowBox[{"FileNameJoin", "[", 
+           RowBox[{"{", 
+            RowBox[{"normalizeddatadir", ",", 
+             RowBox[{"StringJoin", "[", 
+              RowBox[{
+               RowBox[{"ToString", "[", "mapname", "]"}], ",", "\"\<_\>\"", 
+               ",", 
+               RowBox[{"ToString", "[", "X", "]"}], ",", "\"\<_\>\"", ",", 
+               RowBox[{"ToString", "[", "Y", "]"}], ",", "\"\<.txt\>\""}], 
+              "]"}]}], "}"}], "]"}], ",", "fullmapdata", ",", "\"\<TSV\>\""}],
+          "]"}], ";"}]}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      "]"}]}], "]"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.6042320646368194`*^9, 3.6042321517205267`*^9}, {
+  3.6042322705744114`*^9, 3.604232272445598*^9}, {3.6042323884992027`*^9, 
+  3.6042323890522575`*^9}, {3.6048588042772336`*^9, 3.60485881452382*^9}, {
+  3.6048606120366316`*^9, 3.604860613172696*^9}, {3.604860889247487*^9, 
+  3.6048608898655224`*^9}, {3.604861183979345*^9, 3.6048611846183815`*^9}, {
+  3.6048614013617783`*^9, 3.6048614032238846`*^9}, {3.605550666818954*^9, 
+  3.6055506856481867`*^9}}],
+
+Cell[BoxData["\<\"Map 4 pos_785nm__39_39\"\>"], "Output",
+ CellChangeTimes->{
+  3.6042321556949244`*^9, 3.604232599172268*^9, 3.604232657751125*^9, 
+   3.604232699917341*^9, 3.6048586098181114`*^9, 3.604858848848783*^9, 
+   3.6048595513309627`*^9, 3.604859994259297*^9, 3.6048601083378215`*^9, 
+   3.6048602130308094`*^9, 3.6048602784835534`*^9, 3.6048603732479734`*^9, 
+   3.6048607125503807`*^9, 3.604860935653141*^9, 3.60486120609661*^9, 
+   3.6048614890977964`*^9, 3.6055461621297083`*^9, 3.6055462430500517`*^9, 
+   3.605550740076682*^9, 3.6055508308528447`*^9, 3.6055889037599745`*^9, 
+   3.605589049626732*^9, 3.6055890883796067`*^9, 3.605589141298417*^9, {
+   3.6055891986438837`*^9, 3.605589225765307*^9}, 3.6055892780317583`*^9, 
+   3.60558940916798*^9, 3.605589542093969*^9, 3.6055896688396425`*^9}],
+
+Cell[BoxData["\<\"Map 4 pos_785nm_\"\>"], "Output",
+ CellChangeTimes->{
+  3.6042321556949244`*^9, 3.604232599172268*^9, 3.604232657751125*^9, 
+   3.604232699917341*^9, 3.6048586098181114`*^9, 3.604858848848783*^9, 
+   3.6048595513309627`*^9, 3.604859994259297*^9, 3.6048601083378215`*^9, 
+   3.6048602130308094`*^9, 3.6048602784835534`*^9, 3.6048603732479734`*^9, 
+   3.6048607125503807`*^9, 3.604860935653141*^9, 3.60486120609661*^9, 
+   3.6048614890977964`*^9, 3.6055461621297083`*^9, 3.6055462430500517`*^9, 
+   3.605550740076682*^9, 3.6055508308528447`*^9, 3.6055889037599745`*^9, 
+   3.605589049626732*^9, 3.6055890883796067`*^9, 3.605589141298417*^9, {
+   3.6055891986438837`*^9, 3.605589225765307*^9}, 3.6055892780317583`*^9, 
+   3.60558940916798*^9, 3.605589542093969*^9, 3.6055896688436427`*^9}],
+
+Cell[BoxData["\<\"C:\\\\Users\\\\donal\\\\Dropbox\\\\Thesis \
+Data\\\\Raman\\\\785nm maps\\\\24s NaPS Prague sample, 5sec 10%\\\\map 4 , \
+785nm, 18-03-2014, 5sec 10%\\\\Map 4 pos_785nm_;Normalized, 5sec 10%, \
+wavelength\\\\\"\>"], "Output",
+ CellChangeTimes->{
+  3.6042321556949244`*^9, 3.604232599172268*^9, 3.604232657751125*^9, 
+   3.604232699917341*^9, 3.6048586098181114`*^9, 3.604858848848783*^9, 
+   3.6048595513309627`*^9, 3.604859994259297*^9, 3.6048601083378215`*^9, 
+   3.6048602130308094`*^9, 3.6048602784835534`*^9, 3.6048603732479734`*^9, 
+   3.6048607125503807`*^9, 3.604860935653141*^9, 3.60486120609661*^9, 
+   3.6048614890977964`*^9, 3.6055461621297083`*^9, 3.6055462430500517`*^9, 
+   3.605550740076682*^9, 3.6055508308528447`*^9, 3.6055889037599745`*^9, 
+   3.605589049626732*^9, 3.6055890883796067`*^9, 3.605589141298417*^9, {
+   3.6055891986438837`*^9, 3.605589225765307*^9}, 3.6055892780317583`*^9, 
+   3.60558940916798*^9, 3.605589542093969*^9, 3.6055896688466425`*^9}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{828, 710},
+WindowMargins->{{4, Automatic}, {Automatic, 15}},
+FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (December 4, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[557, 20, 1300, 22, 391, "Text"],
+Cell[CellGroupData[{
+Cell[1882, 46, 98, 1, 70, "Section"],
+Cell[1983, 49, 5595, 119, 712, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7615, 173, 235, 3, 70, "Section"],
+Cell[CellGroupData[{
+Cell[7875, 180, 1937, 36, 112, "Input"],
+Cell[9815, 218, 1029, 15, 31, "Output"],
+Cell[10847, 235, 1497, 29, 42, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[12393, 270, 220, 3, 70, "Section"],
+Cell[CellGroupData[{
+Cell[12638, 277, 3370, 76, 512, "Input"],
+Cell[16011, 355, 810, 11, 31, "Output"],
+Cell[16824, 368, 804, 11, 31, "Output"],
+Cell[17631, 381, 995, 14, 72, "Output"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
