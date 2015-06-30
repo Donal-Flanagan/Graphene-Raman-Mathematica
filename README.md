@@ -8,7 +8,7 @@ Raman maps can contain thousands of spectra with varying backgrounds and peaks. 
 This programme is much faster than any commercial programmes I have seen, which is very beneficial when analysing maps of numerous samples.
 
 ### Features
-Fits the D, G, and 2D peaks, but can be easily edited to fit others.
+Fits the D, G, and 2D peaks, as well as the D+D" and strained 2D peak when present.
 Exports each fitted spectrum as a .png file.
 
 ![A typical spectrum of strained CVD graphene](https://github.com/DonalFlanagan/Graphene-Raman-Mathematica/blob/master/Images/Spectrum_map4_1_8.png?raw=true)
@@ -20,4 +20,4 @@ Performs analysis such as identifying multilayer and strained areas, then export
 Exports fitted histograms of the average (and enhanced) G peak area.
 ![A histogram of the average G peak area (below a certain cutoff point due to enhancement)](https://github.com/DonalFlanagan/Graphene-Raman-Mathematica/blob/master/Images/histogram.png?raw=true)
 
-Designed to analyse surface-enhanced Raman spectroscopy (SERS) samples and is therefore quite robust when dealing with strongly varying peak intensities and backgrounds.
+Please read the guide "Analysing Raman maps of graphene with Mathematica" for details on the functionality of the programme and how to edit it. 
