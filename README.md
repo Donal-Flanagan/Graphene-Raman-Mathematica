@@ -16,8 +16,8 @@ Exports each fitted spectrum as a .png file.
 
 * Performs analysis such as identifying multilayer and strained areas, then exports 2D and 3D images.
 
-<img src=https://cloud.githubusercontent.com/assets/12942120/8439618/7c01a5fa-1f6d-11e5-9f80-0ab5292c3f91.PNG width=500 height=350/>
 <img src=https://cloud.githubusercontent.com/assets/12942120/8439617/7bfa54bc-1f6d-11e5-9e13-5acf6d03de72.PNG width=350 height=350/>
+<img src=https://cloud.githubusercontent.com/assets/12942120/8439618/7c01a5fa-1f6d-11e5-9f80-0ab5292c3f91.PNG width=500 height=350/>
 
 * Exports fitted histograms of the average G peak area (and enhancement factor where applicable).
 <img src=https://cloud.githubusercontent.com/assets/12942120/8439619/7c0612c0-1f6d-11e5-9489-907ea716b2b7.png width=470 height=350/>
@@ -26,7 +26,7 @@ Please read the guide "Analysing Raman maps of graphene with Mathematica" for de
 
 
 ### Programmes
-* __Main Raman map fitting programme: __ The main programme
-* __map, histogram plotting programme: __ A programme for generating new histograms and map images with different scales, titles, etc.
-* __Normalization programme: __ A programme for importing a set of spectra and multiplying the intensities by a normalization factor.
-* __Single plot checker: __ A programme for fitting a single spectrum. Numerous images are returned, allowing the user to check programme parameters and individual peak fits.
+* __Main__ __Raman__ map__ __fitting__ __programme:__ The main programme
+* __map,__ __histogram__ __plotting__ __programme:__ A programme for generating new histograms and map images with different scales, titles, etc.
+* __Normalization__ __programme:__ A programme for importing a set of spectra and multiplying the intensities by a normalization factor.
+* __Single__ __plot__ __checker:__ A programme for fitting a single spectrum. Numerous images are returned, allowing the user to check programme parameters and individual peak fits.
