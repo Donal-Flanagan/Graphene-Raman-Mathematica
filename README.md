@@ -26,7 +26,7 @@ Please read the guide "Analysing Raman maps of graphene with Mathematica" for de
 
 
 ### Programmes
-* __Main__ __Raman__ map__ __fitting__ __programme:__ The main programme
+* __Main__ __Raman__ __map__ __fitting__ __programme:__ The main programme
 * __map,__ __histogram__ __plotting__ __programme:__ A programme for generating new histograms and map images with different scales, titles, etc.
 * __Normalization__ __programme:__ A programme for importing a set of spectra and multiplying the intensities by a normalization factor.
 * __Single__ __plot__ __checker:__ A programme for fitting a single spectrum. Numerous images are returned, allowing the user to check programme parameters and individual peak fits.
