@@ -11,8 +11,13 @@ This programme is much faster than any commercial programmes I have seen, which 
 Fits the D, G, and 2D peaks, but can be easily edited to fit others.
 Exports each fitted spectrum as a .png file.
 
+![A typical spectrum of strained CVD graphene](https://github.com/DonalFlanagan/Graphene-Raman-Mathematica/blob/master/Images/Spectrum_map4_1_8.png?raw=true)
+
 Performs analysis such as identifying multilayer and strained areas, then exports 2D and 3D images.
+![A 3D image of the area of the G peak from a sample of graphene on nanostructured copper](https://github.com/DonalFlanagan/Graphene-Raman-Mathematica/blob/master/Images/gpeak3.PNG?raw=true)
+![A 2D image of the area of the G peak from a sample of graphene on nanostructured copper](https://github.com/DonalFlanagan/Graphene-Raman-Mathematica/blob/master/Images/gpeak1.PNG?raw=true)
 
 Exports fitted histograms of the average (and enhanced) G peak area.
+![A histogram of the average G peak area (below a certain cutoff point due to enhancement)](https://github.com/DonalFlanagan/Graphene-Raman-Mathematica/blob/master/Images/histogram.png?raw=true)
 
 Designed to analyse surface-enhanced Raman spectroscopy (SERS) samples and is therefore quite robust when dealing with strongly varying peak intensities and backgrounds.
