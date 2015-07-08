@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     19510,        433]
-NotebookOptionsPosition[     18654,        399]
-NotebookOutlinePosition[     18998,        414]
-CellTagsIndexPosition[     18955,        411]
+NotebookDataLength[     19532,        434]
+NotebookOptionsPosition[     18676,        400]
+NotebookOutlinePosition[     19020,        415]
+CellTagsIndexPosition[     18977,        412]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -30,9 +30,9 @@ enhanced Raman spectroscopy with Atotech Berlin GmBH and  Prof. Eric Anglaret \
 of the Universit\[EHat] Montpellier II.\n\nThe programme is designed for the \
 analysis of CVD graphene but may be easily edited to analyse maps of other \
 materials. \n\nIf you have any questions or problems using this programme \
-please feel free to contact me at:\ndonaloflanagain@gmail.com\n\
+please feel free to contact me at:\n\
 https://www.linkedin.com/in/donaloflanagain\n\
-www.xing.com/profile/Donal_Flanagan2\nand I will do my best to reply.\n\n",
+www.xing.com/profile/Donal_Flanagan3\nand I will do my best to reply.\n\n",
   FontSlant->"Italic"],
  StyleBox["This programme simply imports all the files in a data set and \
 multiplies the y-values by a constant value n. For explanations of the \
@@ -40,7 +40,8 @@ functions see the Raman map fitting programme.",
   FontColor->RGBColor[0., 0., 1.]],
  "\n"
 }], "Text",
- CellChangeTimes->{{3.6246084337050037`*^9, 3.6246084590656786`*^9}}],
+ CellChangeTimes->{{3.6246084337050037`*^9, 3.6246084590656786`*^9}, {
+  3.645367621818986*^9, 3.645367624322129*^9}}],
 
 Cell[CellGroupData[{
 
@@ -413,26 +414,26 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[557, 20, 1300, 22, 391, "Text"],
+Cell[557, 20, 1322, 23, 372, "Text"],
 Cell[CellGroupData[{
-Cell[1882, 46, 98, 1, 70, "Section"],
-Cell[1983, 49, 5595, 119, 712, "Input"]
+Cell[1904, 47, 98, 1, 70, "Section"],
+Cell[2005, 50, 5595, 119, 712, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7615, 173, 235, 3, 70, "Section"],
+Cell[7637, 174, 235, 3, 70, "Section"],
 Cell[CellGroupData[{
-Cell[7875, 180, 1937, 36, 112, "Input"],
-Cell[9815, 218, 1029, 15, 31, "Output"],
-Cell[10847, 235, 1497, 29, 42, "Output"]
+Cell[7897, 181, 1937, 36, 112, "Input"],
+Cell[9837, 219, 1029, 15, 31, "Output"],
+Cell[10869, 236, 1497, 29, 42, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[12393, 270, 220, 3, 70, "Section"],
+Cell[12415, 271, 220, 3, 70, "Section"],
 Cell[CellGroupData[{
-Cell[12638, 277, 3370, 76, 512, "Input"],
-Cell[16011, 355, 810, 11, 31, "Output"],
-Cell[16824, 368, 804, 11, 31, "Output"],
-Cell[17631, 381, 995, 14, 72, "Output"]
+Cell[12660, 278, 3370, 76, 512, "Input"],
+Cell[16033, 356, 810, 11, 31, "Output"],
+Cell[16846, 369, 804, 11, 31, "Output"],
+Cell[17653, 382, 995, 14, 72, "Output"]
 }, Open  ]]
 }, Open  ]]
 }
